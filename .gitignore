@@ -1,0 +1,39 @@
+# Runtime data and logs
+wazuh-single-node/cortex/
+wazuh-single-node/files/
+thehive-stack/cassandra/data/
+thehive-stack/cassandra/logs/
+thehive-stack/elasticsearch/data/
+thehive-stack/elasticsearch/logs/
+misp-docker/files/
+misp-docker/logs/
+
+# Configuration directories
+misp-docker/gnupg/
+misp-docker/ssl/
+misp-docker/custom/
+
+# Env files and overrides
+misp-docker/.env
+misp-docker/env.hcl
+misp-docker/docker-compose.override.yml
+
+# System junk files
+misp-docker/.DS_Store
+misp-docker/.AppleDouble
+misp-docker/.LSOverride
+
+
+# Keys and certs
+misp-docker/gnupg/private-keys-v1.d/*.key
+misp-docker/ssl/*.pem
+misp-docker/ssl/*.key
+
+thehive-stack/nginx/certs/server.key
+thehive-stack/nginx/certs/server.crt
+
+wazuh-single-node/config/wazuh_indexer_ssl_certs/*.pem
+wazuh-single-node/config/wazuh_indexer_ssl_certs/*.key
+
+wazuh-single-node/ssl/*.pem
+wazuh-single-node/ssl/*.key

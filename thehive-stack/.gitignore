@@ -1,0 +1,4 @@
+cassandra/data/
+cassandra/logs/
+elasticsearch/data/
+elasticsearch/logs/

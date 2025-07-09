@@ -1,0 +1,53 @@
+#!/bin/sh
+# Copyright (C) 2015-2020, Wazuh Inc.
+# Created by Wazuh, Inc. <info@wazuh.com>.
+# This program is free software; you can redistribute it and/or modify it under the terms of GPL
+
+WPYTHON_BIN="framework/python/bin/python3"
+SCRIPT_PATH_NAME="$0"
+DIR_NAME="$(cd $(dirname ${SCRIPT_PATH_NAME}); pwd -P)"
+SCRIPT_NAME="$(basename ${SCRIPT_PATH_NAME})"
+
+case ${DIR_NAME} in
+    */active-response/bin | */wodles*)
+        if [ -z "${WAZUH_PATH}" ]; then
+            WAZUH_PATH="$(cd ${DIR_NAME}/../..; pwd)"
+        fi
+        PYTHON_SCRIPT="${DIR_NAME}/${SCRIPT_NAME}.py"
+        ;;
+    */bin)
+        if [ -z "${WAZUH_PATH}" ]; then
+            WAZUH_PATH="$(cd ${DIR_NAME}/..; pwd)"
+        fi
+        PYTHON_SCRIPT="${WAZUH_PATH}/framework/scripts/${SCRIPT_NAME}.py"
+        ;;
+    */integrations)
+        if [ -z "${WAZUH_PATH}" ]; then
+            WAZUH_PATH="$(cd ${DIR_NAME}/..; pwd)"
+        fi
+        PYTHON_SCRIPT="${DIR_NAME}/${SCRIPT_NAME}.py"
+        ;;
+esac
+
+# Remove trailing slash from WAZUH_PATH if present
+WAZUH_PATH="${WAZUH_PATH%/}"
+
+# Debug output (remove after fixing)
+echo "WAZUH_PATH: ${WAZUH_PATH}"
+echo "WPYTHON_BIN: ${WPYTHON_BIN}"
+echo "PYTHON_SCRIPT: ${PYTHON_SCRIPT}"
+echo "Full Python path: ${WAZUH_PATH}/${WPYTHON_BIN}"
+
+# Check if Python executable exists
+if [ ! -f "${WAZUH_PATH}/${WPYTHON_BIN}" ]; then
+    echo "Error: Python executable not found at ${WAZUH_PATH}/${WPYTHON_BIN}"
+    exit 1
+fi
+
+# Check if Python script exists
+if [ ! -f "${PYTHON_SCRIPT}" ]; then
+    echo "Error: Python script not found at ${PYTHON_SCRIPT}"
+    exit 1
+fi
+
+"${WAZUH_PATH}/${WPYTHON_BIN}" "${PYTHON_SCRIPT}" "$@"
