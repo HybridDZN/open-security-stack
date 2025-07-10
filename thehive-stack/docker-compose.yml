@@ -127,6 +127,11 @@ services:
       com.strangebee.environment: "testing"
       com.strangebee.version: "${thehive_image_version}"
       com.strangebee.dependency: "elasticsearch, cassandra"
+    command:
+      - "--cortex-port"
+      - "9001"
+      - "--cortex-keys"
+      - "0My3jmJvB93q1HiyhSearV4/Q51qF7yu"
 
   cortex:
     image: "thehiveproject/cortex:${cortex_image_version}"
