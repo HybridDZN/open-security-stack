@@ -5,8 +5,10 @@ thehive-stack/cassandra/data/
 thehive-stack/cassandra/logs/
 thehive-stack/elasticsearch/data/
 thehive-stack/elasticsearch/logs/
+thehive-stack/cortex/logs/
 misp-docker/files/
 misp-docker/logs/
+
 
 # Configuration directories
 misp-docker/gnupg/
@@ -37,3 +39,4 @@ wazuh-single-node/config/wazuh_indexer_ssl_certs/*.key
 
 wazuh-single-node/ssl/*.pem
 wazuh-single-node/ssl/*.key
+
