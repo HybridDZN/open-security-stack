@@ -4,6 +4,7 @@ services:
   mail:
     networks:
       - open-security-stack
+    container_name: misp_mail
     image: ixdotai/smtp
     environment:
       - "SMARTHOST_ADDRESS=${SMARTHOST_ADDRESS}"
@@ -13,6 +14,7 @@ services:
       - "SMARTHOST_ALIASES=${SMARTHOST_ALIASES}"
 
   redis:
+    container_name: misp_redis
     networks:
         - open-security-stack
     image: valkey/valkey:7.2
@@ -26,6 +28,7 @@ services:
       start_interval: 5s
 
   db:
+    container_name: misp_mariadb
     networks:
         - open-security-stack
     # We use MariaDB because it supports ARM and has the expected collations
@@ -58,6 +61,7 @@ services:
       start_interval: 5s
 
   misp-core:
+    container_name: misp_core
     networks:
           - open-security-stack
     image: ghcr.io/misp/misp-docker/misp-core:${CORE_RUNNING_TAG:-latest}
@@ -97,8 +101,8 @@ services:
       start_period: 30s
       start_interval: 30s
     ports:
-      - "80:80"
-      - "443:443"
+      - "8001:80"
+      # - "9443:443"
     volumes:
       - "./configs/:/var/www/MISP/app/Config/"
       - "./logs/:/var/www/MISP/app/tmp/logs/"
@@ -261,7 +265,7 @@ services:
       - "CONTENT_SECURITY_POLICY=${CONTENT_SECURITY_POLICY}"
 
   misp-modules:
-    
+    container_name: misp_modules 
     image: ghcr.io/misp/misp-docker/misp-modules:${MODULES_RUNNING_TAG:-latest}
     build:
       context: modules/.

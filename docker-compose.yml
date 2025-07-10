@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  include-wazuh:
+    extends:
+      file: ./wazuh-single-node/docker-compose.yml
+      service: wazuh.manager
+
+  include-thehive:
+    extends:
+      file: ./thehive-stack/docker-compose.yml
+      service: thehive
+
+  include-misp:
+    extends:
+      file: ./misp-docker/docker-compose.yml
+      service: misp
+
